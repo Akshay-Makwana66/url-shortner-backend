@@ -58,12 +58,12 @@ const createUrlCode = async function(req, res){
     data.shortUrl = `http://localhost:${process.env.PORT}/` + shortId;                  
 
     let savedData = await urlCodeModel.create(data);
-    let data1 = { 
+    let responseData = { 
       longUrl: savedData.longUrl,
       shortUrl: savedData.shortUrl,
       urlCode: savedData.urlCode, 
     };
-    res.status(201).send({ status: true, data: data1 });
+    res.status(201).send({ status: true, data: responseData });
   } catch (err) {
     res.status(500).send({ sattus: false, message: err.message });   
   }
