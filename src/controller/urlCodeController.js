@@ -52,7 +52,7 @@ const createUrlCode = async function(req, res){
     // if(shortidExist) return res.status(200).send({status: true, msg:"It is already present", data:shortidExist})
      //checking if urlCode is unique and has only lower case letters 
     data.urlCode = shortId;   
-    data.shortUrl = `https://localhost:7000/` + shortId;                  
+    data.shortUrl = `https://teenyurl.onrender.com/` + shortId;                  
 
     let savedData = await urlCodeModel.create(data);
     let responseData = { 
