@@ -4,7 +4,7 @@ const express = require("express");
 const route = require("./route/route");
 const mongoose = require("mongoose");
 const cors = require('cors');
-const app = express();
+var app = express();
 const port = process.env.PORT || 3004
 app.use(cors())
 app.use(express.json());
@@ -21,3 +21,5 @@ app.use("/", route);
 app.listen(port,  () =>{        
   console.log(`Express app running on port ${port}`);
 });  
+
+module.exports = {app}

@@ -6,21 +6,18 @@ const redis = require("redis");
 const { promisify } = require("util");                       
 
 // Connect to redis
-const redisClient = redis.createClient(  
-  13908,
-  "redis-13908.c301.ap-south-1-1.ec2.cloud.redislabs.com",               
+const redisClient = redis.createClient( 
+  19325,
+  "redis-19325.c305.ap-south-1-1.ec2.cloud.redislabs.com",
   { no_ready_check: true }
 );
-redisClient.auth("RzGKGcnm8m6OgrxKCEzG4dPjCNeHKThL", function (err) {
+redisClient.auth("Umn2mF3n5WWVhDT5jKo2aGRuNyHd6IlZ", function (err) {
   if (err) throw err;
 });        
 redisClient.on("connect", async function () {                    
   console.log("Connected to Redis..");        
 });          
      
-//  UnDS97Pb0tooHg686fTySFh9OngOmPM0
-
-
 //1. connect to the server
 //2. use the commands :
 
@@ -55,7 +52,7 @@ const createUrlCode = async function(req, res){
     // if(shortidExist) return res.status(200).send({status: true, msg:"It is already present", data:shortidExist})
      //checking if urlCode is unique and has only lower case letters 
     data.urlCode = shortId;   
-    data.shortUrl = `https://teenyurl-arm.vercel.app/` + shortId;                  
+    data.shortUrl = `https://localhost:7000/` + shortId;                  
 
     let savedData = await urlCodeModel.create(data);
     let responseData = { 
@@ -83,7 +80,7 @@ const getUrlCode = async function(req,res){
     }catch(err){
         res.status(500).send({status: false, error: err.message})       
     }
-}        
+}       
 
 module.exports = {createUrlCode,getUrlCode}       
 
