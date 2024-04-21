@@ -10,60 +10,46 @@ chai.use(chaiHttp);
 
 describe('App Unit Testing', () => {
   describe('createUrlCode', () => {
-    it('should create a new URL code', async () => {
-      // Mock request and response objects
+    it('should create a new URL code', (done) => {
+      // Mock request object
       const req = {
-        body: {
+       
           longUrl: 'https://example.com'
-        }
+  
       };
-      const res = {
-        status: (code) => {
-          return {
-            send: (data) => {
-              chai.expect(code).to.equal(201);
-              chai.expect(data.status).to.be.true;
-              // Additional assertions can be made here
-            }
-          };
-        }
-      };
-      
-      // Call the function and pass mock objects
-      await createUrlCode(req, res);
+      chai.request(server)
+        .post('/url/shorten')
+        .send(req)
+        .end((err, response) => {
+          if (err) {
+            console.log(err);
+            done(err); // Pass error to done callback
+          } else {
+            response.should.have.status(201);
+            response.body.should.be.a('object');
+            done(); // Call done to signal completion
+          }
+        });
     });
 
     // Add more tests for edge cases
   });
 
-//   describe('getUrlCode', () => {
-//     it('should redirect to the long URL', async () => {
-//       // Mock request and response objects
-//       const req = {
-//         params: {
-//           urlCode: 'your_test_url_code'
-//         }
-//       };
-//       const res = {
-//         status: (code) => {
-//           return {
-//             send: (data) => {
-//               chai.expect(code).to.equal(302);
-//               chai.expect(data).to.have.property('status').that.is.true;
-//               // Additional assertions can be made here
-//             },
-//             redirect: (url) => {
-//               chai.expect(url).to.be.a('string');
-//               // Additional assertions can be made here
-//             }
-//           };
-//         }
-//       };
-      
-//       // Call the function and pass mock objects
-//       await getUrlCode(req, res);
-//     });
+  describe('getUrlCode', () => {
+    it('should redirect to the long URL', async () => {
+      // Mock request object
+      const req = {
+        params: {
+          urlCode: 'your_test_url_code'
+        }
+      };
 
-    // Add more tests for edge cases
-//   });
+      // Call the function and assert on the response
+      const res = await getUrlCode(req);
+
+      chai.expect(res.status).to.equal(302);
+      chai.expect(res.data).to.have.property('status').that.is.true;
+      chai.expect(res.headers).to.have.property('location').to.be.a('string');
+    });
+  });
 });

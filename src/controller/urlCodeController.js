@@ -7,17 +7,17 @@ const { promisify } = require("util");
 
 // Connect to redis
 const redisClient = redis.createClient( 
-  19325,
-  "redis-19325.c305.ap-south-1-1.ec2.cloud.redislabs.com",
+  16787,
+  "redis-16787.c264.ap-south-1-1.ec2.redns.redis-cloud.com",
   { no_ready_check: true }
 );
-redisClient.auth("Umn2mF3n5WWVhDT5jKo2aGRuNyHd6IlZ", function (err) {
+redisClient.auth("Xt4ipUw0d9ECDTCvsHi0DEsL5nkPwvLr", function (err) {
   if (err) throw err;
 });        
 redisClient.on("connect", async function () {                    
   console.log("Connected to Redis..");        
 });          
-     
+// React.js concepts and workflows such as Redux, Flux, and Webpack. 
 //1. connect to the server
 //2. use the commands :
 
